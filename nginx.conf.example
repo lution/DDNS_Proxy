@@ -1,0 +1,24 @@
+server {
+	listen 80;
+	server_name ddns.example.com;
+    
+	access_log /path/to/log/ddns.log main;
+
+    location ~* ^/update/(.*)$ {
+        lua_code_cache on;
+        set $record $1;
+        set $email '';
+        set $api_key '';
+        content_by_lua_file /path/to/project/index.lua;
+    }
+    
+    location ~* ^/api/cloudflare/(.*)$ {
+        internal;
+        resolver 8.8.8.8;
+
+        proxy_set_header X-Auth-Email $email;
+        proxy_set_header X-Auth-Key $api_key;
+        proxy_set_header Content-Type application/json;
+        proxy_pass https://api.cloudflare.com/client/v4/$1$is_args$args;
+    }
+}
