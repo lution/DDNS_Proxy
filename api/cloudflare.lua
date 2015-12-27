@@ -23,7 +23,7 @@ end
 
 function getZone(auth, record)
     local raw_resp = ngx.location.capture(
-    '/cloudflare/zones',
+    '/api/cloudflare/zones',
     { vars = {email = auth.email, api_key = auth.API_key} }
     )
     -- FIXME resp status check
@@ -56,7 +56,7 @@ end
 
 function getRecord(auth, zone, record)
     local raw_resp = ngx.location.capture(
-    '/cloudflare/zones/' .. zone .. '/dns_records?name=' .. record,
+    '/api/cloudflare/zones/' .. zone .. '/dns_records?name=' .. record,
     { vars = {email = auth.email, api_key = auth.API_key} }
     )
     -- FIXME resp status check
@@ -82,7 +82,7 @@ function updateRecord(auth, identifier, ip, data)
     data.result[1].content = ip
     local raw_resp = ngx.location.capture(
     -- FIXME modified_on not modified
-    '/cloudflare/zones/' .. identifier.zone .. '/dns_records/' .. identifier.record,
+    '/api/cloudflare/zones/' .. identifier.zone .. '/dns_records/' .. identifier.record,
     { vars = {email = auth.email, api_key = auth.API_key}, method = ngx.HTTP_PUT, body = json:encode(data.result[1]) }
     )
     -- FIXME resp status check
@@ -100,5 +100,6 @@ function updateRecord(auth, identifier, ip, data)
 end
 
 function showError(data)
+    -- FIXME return non 200 status on error
     ngx.say(json:encode(data))
 end

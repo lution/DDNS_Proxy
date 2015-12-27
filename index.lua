@@ -7,7 +7,7 @@ require('utils.json')
 --
 
 local auth = {}
-local record = "test.bydell.com"
+local record = ngx.var.record
 local ip = ngx.var.remote_addr
 local auth_header = ngx.var.http_Authorization
 
