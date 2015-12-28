@@ -1,5 +1,5 @@
-require('utils.base64')
-require('utils.json')
+local base64 = require('utils.base64')
+local json = require('utils.json')
 
 --
 -- Get Email and API key using basic authentacation
