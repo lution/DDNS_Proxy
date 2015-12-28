@@ -1,7 +1,6 @@
 require('utils.base64')
 require('utils.json')
 
-
 --
 -- Get Email and API key using basic authentacation
 --

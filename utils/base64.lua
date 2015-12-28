@@ -34,3 +34,17 @@ function base64_dec(data)
     end))
 end
 
+-- command line if not called as library
+if (arg ~= nil) then
+    local func = 'enc'
+    for n,v in ipairs(arg) do
+        if (n > 0) then
+            if (v == "-h") then print "base64.lua [-e] [-d] text/data" break
+            elseif (v == "-e") then func = 'enc'
+            elseif (v == "-d") then func = 'dec'
+            else print(_G[func](v)) end
+        end
+    end
+else
+    module('base64',package.seeall)
+end
