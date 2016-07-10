@@ -38,5 +38,5 @@ end
 -- Call target API to process request
 --
 
-local test = require('api.cloudflare')
-process(auth, record, ip)
+local cloudflare = require('api.cloudflare')
+cloudflare.process(auth, record, ip)

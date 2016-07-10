@@ -2,6 +2,7 @@
 -- CLoudflare DNS API
 -- Date:2015-12-25
 --
+local M = {}
 local json = require('utils.json')
 
 function process(auth, record, ip)
@@ -13,7 +14,6 @@ function process(auth, record, ip)
             local result = updateRecord(auth, identifier, ip, data)
         end
     end
-
 end
 
 --
@@ -103,3 +103,7 @@ function showError(data)
     -- FIXME return non 200 status on error
     ngx.say(json:encode(data))
 end
+
+M.process = process
+
+return M
