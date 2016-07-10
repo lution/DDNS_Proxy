@@ -2,6 +2,7 @@
 -- licensed under the terms of the LGPL2
 
 -- character table string
+local M = {}
 local b='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
 
 -- encoding
@@ -48,3 +49,8 @@ if (arg ~= nil) then
 else
     module('base64',package.seeall)
 end
+
+M.encode = base64_enc
+M.decode = base64_dec
+
+return M

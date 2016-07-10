@@ -18,7 +18,7 @@ if not auth_header then
 else
     -- Auth Header value looks like "Basic Og=="
     local raw_auth_data = string.sub(ngx.var.http_Authorization, #"Basic " + 1, #ngx.var.http_Authorization)
-    local auth_data = base64_dec(raw_auth_data)
+    local auth_data = base64.decode(raw_auth_data)
     -- Original pattern from http://stackoverflow.com/questions/21040325/email-address-validation-using-corona-sdk
     auth.email = string.match(auth_data, '^([A-Za-z0-9%.%%%+%-]+@[A-Za-z0-9%.%%%+%-]+%.%w%w%w?%w?):.*')
     if not auth.email then
